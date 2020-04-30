@@ -1,2 +1,4 @@
 python openpose.py --model pose.caffemodel --proto pose.prototxt --dataset MPI
 python openpose.py --model pose_iter_440000.caffemodel --proto pose_deploy_linevec_faster_4_stages.prototxt --dataset COCO
+python openpose_method1.py --model pose_iter_440000.caffemodel --proto pose_deploy_linevec_faster_4_stages.prototxt --dataset COCO
+python openpose_method2.py --model pose_iter_440000.caffemodel --proto pose_deploy_linevec_faster_4_stages.prototxt --dataset COCO
