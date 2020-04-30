@@ -26,5 +26,17 @@ For example, for the static action, I am hand up, and for the next second, the l
 
 However, sometimes I am not going to wave my hand but the algorithm still says that I am waving my hand. So I add a limitation for δS, only if the change of my hand’s location is bigger than a range then the algorithm will judge this as a dynamic action. 
 
-Prediction: Include two method
+Prediction: Include two method  
+![imgae](image/method1.png)
+![imgae](image/method2.png)
+
+# Result:
+![imgae](image/Result.png)
+# Reference:
+[1] Zhe Cao, Gines Hidalgo, Tomas Simon, Shih-En Wei, Yaser Sheikh, “OpenPose: Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields,” in 2018.
+[2] G. Hidalgo, Z. Cao, T. Simon, S.-E. Wei, H. Joo, and Y. Sheikh, “OpenPose library,” https://github.com/ CMU-Perceptual-Computing-Lab/openpose.
+[3] P. F. Felzenszwalb and D. P. Huttenlocher, “Pictorial structures for object recognition,” in IJCV, 2005.
+[4] ——, “Pictorial structures revisited: People detection and articulated pose estimation,” in CVPR, 2009.
+[5] V. Belagiannis and A. Zisserman, “Recurrent human pose estimation,” in IEEE FG, 2017.
+[6] X. Qian, Y. Fu, T. Xiang, W. Wang, J. Qiu, Y. Wu, Y.-G. Jiang, and X. Xue, “Pose-normalized image generation for person reidentification,” in ECCV, 2018.
 
