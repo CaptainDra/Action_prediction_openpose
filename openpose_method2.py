@@ -99,5 +99,56 @@ while cv.waitKey(1) < 0:
     freq = cv.getTickFrequency() / 1000
     cv.putText(frame, '%.2fms' % (t / freq), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0))
 
+    if ttime:
+        necklast = neck
+        left_wristlast = left_wrist
+        right_wristlast = right_wrist
+        lelbowlast = lelbow
+
+    lelbow = points[BODY_PARTS['Neck']]
+    neck = points[BODY_PARTS['Neck']]
+    left_wrist = points[BODY_PARTS['LWrist']]
+    right_wrist = points[BODY_PARTS['RWrist']]
+    left_prediction = left_wrist
+    print("neck:",neck, "left_wrist:" , left_wrist, "right_wrist:",right_wrist)
+
+    if neck and left_wrist and right_wrist and left_wrist[1] < neck[1] and right_wrist[1] < neck[1]:
+        cv.putText(frame, 'BOTH HANDS UP', (10, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    elif neck and right_wrist and right_wrist[1] < neck[1]:
+        cv.putText(frame, 'RIGHT HAND UP', (10, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    elif neck and left_wrist and left_wrist[1] < neck[1]:
+        cv.putText(frame, 'LEFT HAND UP', (10, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+    if neck and left_wrist and left_wristlast and left_wrist[1] < neck[1] and left_wristlast != left_wrist:
+        cv.putText(frame, 'WAVE  LEFT HAND', (300, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        print("Hand moved from:", necklast, left_wristlast, right_wristlast)
+        x1 = left_wristlast[0]
+        y1 = left_wristlast[1]
+        x2 = lelbowlast[0]
+        y2 = lelbowlast[1]
+        x3 = left_wrist[0]
+        y3 = left_wrist[1]
+        x4 = lelbow[0]
+        y4 = lelbow[1]
+        k1 = (y1 - y2) / (x1 - x2)
+        b1 = y1 - x1 * (y1 - y2) / (x1 - x2)
+        k2 = (y3 - y4) / (x3 - x4)
+        b2 = y3 - x3 * (y3 - y4) / (x3 - x4)
+        x5 = (b2 - b1)/(k1 - k2)
+        y5 = k1 * x5 + b1
+        a = math.sqrt((x1 - x3) * (x1 - x3) + (y1 - y3) * (y1 - y3))
+        b = math.sqrt((x5 - x3) * (x5 - x3) + (y5 - y3) * (y5 - y3))
+        c = math.sqrt((x1 - x5) * (x1 - x5) + (y1 - y5) * (y1 - y5))
+        thetadot = math.degrees((a * a - b * b - c * c)/(-2 * b * c))
+        x6 = (x3 - x5) * math.cos(thetadot) - (y3 - y5) * math.sin(thetadot) + x5
+        y6 = (x3 - x5) * math.sin(thetadot) + (y3 - y5) * math.cos(thetadot) + y5
+        x6 = int(x6)
+        y6 = int(y6)
+        left_prediction = (x6, y6)
+        cv.ellipse(frame, left_prediction, (3, 3), 0, 0, 360, (0, 0, 255), cv.FILLED)
+        axes = (x5, y5)
+        print("Axes is :", axes)
+        print("Moving to: ", left_prediction)
+
     cv.imshow('OpenPose using OpenCV', frame)
     ttime = ttime + 1

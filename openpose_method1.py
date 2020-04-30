@@ -99,5 +99,34 @@ while cv.waitKey(1) < 0:
     freq = cv.getTickFrequency() / 1000
     cv.putText(frame, '%.2fms' % (t / freq), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0))
 
+    if ttime:
+        necklast = neck
+        left_wristlast = left_wrist
+        right_wristlast = right_wrist
+        lelbowlast = lelbow
+
+    lelbow = points[BODY_PARTS['Neck']]
+    neck = points[BODY_PARTS['Neck']]
+    left_wrist = points[BODY_PARTS['LWrist']]
+    right_wrist = points[BODY_PARTS['RWrist']]
+    left_prediction = left_wrist
+    print("neck:",neck, "left_wrist:" , left_wrist, "right_wrist:",right_wrist)
+
+    if neck and left_wrist and right_wrist and left_wrist[1] < neck[1] and right_wrist[1] < neck[1]:
+        cv.putText(frame, 'BOTH HANDS UP', (10, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    elif neck and right_wrist and right_wrist[1] < neck[1]:
+        cv.putText(frame, 'RIGHT HAND UP', (10, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    elif neck and left_wrist and left_wrist[1] < neck[1]:
+        cv.putText(frame, 'LEFT HAND UP', (10, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+    if neck and left_wrist and left_wristlast and left_wrist[1] < neck[1] and left_wristlast != left_wrist:
+        cv.putText(frame, 'WAVE  LEFT HAND', (300, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        print("Hand moved from:",necklast, left_wristlast, right_wristlast)
+        yl = 2 * left_wrist[1] - left_wristlast[1]
+        xl = 2 * left_wrist[0] - left_wristlast[0]
+        left_prediction = (xl, yl)
+        cv.ellipse(frame, left_prediction, (3, 3), 0, 0, 360, (0, 0, 255), cv.FILLED)
+        print("Moving to: ",left_prediction)
+
     cv.imshow('OpenPose using OpenCV', frame)
     ttime = ttime + 1
