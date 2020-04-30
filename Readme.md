@@ -2,7 +2,7 @@
 
 This repository contains:
 
-1. my project main file name: openpose.py, and openposedemo.py
+1. my project main file name: openpose.py, and openposedemo.py and openpose_method1.py and openpose_method2.py
 2. A bat file to download models from CMU
 3. A txt file record how to run the python document
 4. two sample document from CMU
@@ -29,6 +29,14 @@ However, sometimes I am not going to wave my hand but the algorithm still says t
 Prediction: Include two method  
 ![imgae](image/method1.png)
 ![imgae](image/method2.png)
+
+# Quick Start
+
+To run my code you need:  
+1.python3+(python2.7 should be ok)  
+2.install opencv for my preoject file  
+3.download model from CMU:https://github.com/CMU-Perceptual-Computing-Lab/openpose or use getModels.bat for Windows  
+4.use the command in python.txt  
 
 # Result:
 ![imgae](image/Result.png)
