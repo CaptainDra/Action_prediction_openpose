@@ -29,6 +29,7 @@ However, sometimes I am not going to wave my hand but the algorithm still says t
 Prediction: Include two method  
 ![imgae](image/method1.png)
 ![imgae](image/method2.png)
+![imgae](image/result.png)
 
 # Quick Start
 
